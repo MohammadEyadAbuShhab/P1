@@ -6,27 +6,21 @@ import java.io.IOException;
 
 public class AutoModel {
 	private Auto auto;
-	
-	
 
 	public Auto getAuto() {
 		return auto;
 	}
 
-
-
 	public void setAuto(Auto auto) {
 		this.auto = auto;
 	}
 
-	private void schreibeAutosInCsvDatei() {
+	private void schreibeAutoInCsvDatei() {
 		try {
-			BufferedWriter aus 
-				= new BufferedWriter(new FileWriter("BuergeraemterAusgabe.csv", true));
-			aus.write(auto.gibBuergeramtZurueck(';'));
+			BufferedWriter aus = new BufferedWriter(new FileWriter("AutoAusgabe.csv", true));
+			aus.write(auto.gibAutoZurueck(';'));
 			aus.close();
-		}	
-		catch(IOException exc){
+		} catch (IOException exc) {
 			exc.printStackTrace();
 		}
 	}

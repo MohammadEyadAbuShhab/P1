@@ -1,26 +1,25 @@
 package business;
 
 public class Auto {
-	
-	// kennzeichen des Buergeramtes
-    private String kennzeichen;
-    // Oeffnungszeiten
-    private float vermietetVonBis;
-    private float tagespreis;
-    // Strasse und Hausnummer des Buergeramtes
-    private String typ;
-    // modell des Buergeramtes
-    private String[] modell;
 
-    public Auto(String kennzeichen, float vermietetVonBis, float tagespreis,
-    	String typ, String[] modell){
-   		this.kennzeichen = kennzeichen;
-  	    this.vermietetVonBis = vermietetVonBis;
-   	    this.tagespreis = tagespreis;
-   	    this.typ = typ;
-   	    this.modell = modell;
-    }
-    
+	// kennzeichen des Buergeramtes
+	private String kennzeichen;
+	// Oeffnungszeiten
+	private String modell;
+	private float tagespreis;
+	// Strasse und Hausnummer des Buergeramtes
+	private String typ;
+	// modell des Buergeramtes
+	private String[] vermietetVonBis;
+
+	public Auto(String kennzeichen, String modell, float tagespreis, String typ, String[] vermietetVonBis) {
+		this.kennzeichen = kennzeichen;
+		this.modell = modell;
+		this.tagespreis = tagespreis;
+		this.typ = typ;
+		this.vermietetVonBis = vermietetVonBis;
+	}
+
 	public String getkennzeichen() {
 		return kennzeichen;
 	}
@@ -29,12 +28,12 @@ public class Auto {
 		this.kennzeichen = kennzeichen;
 	}
 
-	public float getvermietetVonBis() {
-		return vermietetVonBis;
+	public String getmodell() {
+		return modell;
 	}
 
-	public void setvermietetVonBis(float vermietetVonBis) {
-		this.vermietetVonBis = vermietetVonBis;
+	public void setmodell(String modell) {
+		this.modell = modell;
 	}
 
 	public float gettagespreis() {
@@ -53,29 +52,25 @@ public class Auto {
 		this.typ = typ;
 	}
 
-	public String[] getmodell() {
-		return modell;
+	public String[] getVermietetVonBis() {
+		return vermietetVonBis;
 	}
 
-	public void setmodell(String[] modell) {
-		this.modell = modell;
+	public void setVermietetVonBis(String[] vermietetVonBis) {
+		this.vermietetVonBis = vermietetVonBis;
 	}
-	
-	public String getmodellAlsString(char trenner) {
+
+	public String getVermietetVonBisAlsString(char trenner) {
 		String ergebnis = "";
 		int i = 0;
-		for(i = 0; i < this.getmodell().length - 1; i++) {
-			ergebnis = ergebnis + this.getmodell()[i] + trenner; 
+		for (i = 0; i < this.getVermietetVonBis().length - 1; i++) {
+			ergebnis = ergebnis + this.getVermietetVonBis()[i] + trenner;
 		}
-		return ergebnis	+ this.getmodell()[i];
+		return ergebnis + this.getVermietetVonBis()[i];
 	}
-	
-	public String gibBuergeramtZurueck(char trenner){
-  		return this.getkennzeichen() + trenner 
-  			+ this.getvermietetVonBis() + trenner
-  		    + this.gettagespreis() + trenner
-  		    + this.gettyp() + trenner + "\n"
-  		    + this.getmodellAlsString(trenner) + "\n";
-  	}
-}
 
+	public String gibAutoZurueck(char trenner) {
+		return this.getkennzeichen() + trenner + this.getmodell() + trenner + this.gettagespreis() + trenner
+				+ this.gettyp() + trenner + "\n" + this.getmodellAlsString(trenner) + "\n";
+	}
+}
