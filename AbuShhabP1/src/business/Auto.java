@@ -71,6 +71,6 @@ public class Auto {
 
 	public String gibAutoZurueck(char trenner) {
 		return this.getkennzeichen() + trenner + this.getmodell() + trenner + this.gettagespreis() + trenner
-				+ this.gettyp() + trenner + "\n" + this.getmodellAlsString(trenner) + "\n";
+				+ this.gettyp() + trenner + "\n" + this.getVermietetVonBisAlsString(trenner) + "\n";
 	}
 }
