@@ -59,7 +59,7 @@ public class AutoView {
 		this.autoControl = autoControl;
 		Scene scene = new Scene(this.pane, 700, 340);
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("Verwaltung von Autosn");
+		primaryStage.setTitle("Verwaltung von Autos");
 		primaryStage.show();
 		this.initKomponenten();
 		this.initListener();
@@ -135,7 +135,7 @@ public class AutoView {
 		btnEingabe.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				nehmeAutoAuf();
+				autoControl.nehmeAutoAuf();
 			}
 		});
 		btnAnzeige.setOnAction(new EventHandler<ActionEvent>() {
@@ -164,6 +164,14 @@ public class AutoView {
 		});
 	}
 
+	private void zeigeAutosAn() {
+		if (this.autoModel.getAuto() != null) {
+			txtAnzeige.setText(this.autoModel.getAuto().gibAutoZurueck(' '));
+		} else {
+			zeigeInformationsfensterAn("Bisher wurde kein Autos aufgenommen!");
+		}
+	}
+
 	private void schreibeAutosInCsvDatei() {
 		try {
 			BufferedWriter aus = new BufferedWriter(new FileWriter("AutosAusgabe.csv", true));
@@ -185,25 +193,6 @@ public class AutoView {
 		new MeldungsfensterAnzeiger(AlertType.ERROR, "Fehler", meldung).zeigeMeldungsfensterAn();
 	}
 
-	private void nehmeAutoAuf() {
-		try {
-			this.autoModel.setAuto(
-					new Auto(txtKennzeichen.getText(), txtModell.getText(), Float.parseFloat(txtTagesPreis.getText()),
-							txtTyp.getText(), txtVermietetVonBis.getText().split(";")));
-			zeigeInformationsfensterAn("Das Auto wurde aufgenommen!");
-		} catch (Exception exc) {
-			zeigeFehlermeldungsfensterAn(exc.getMessage());
-		}
-	}
-
-	private void zeigeAutosAn() {
-		if (this.autoModel.getAuto() != null) {
-			txtAnzeige.setText(this.autoModel.getAuto().gibAutoZurueck(' '));
-		} else {
-			zeigeInformationsfensterAn("Bisher wurde kein Autos aufgenommen!");
-		}
-	}
-
 	private void leseAusDatei(String typ) {
 		try {
 			if ("csv".equals(typ)) {
@@ -220,6 +209,62 @@ public class AutoView {
 		} catch (Exception exc) {
 			zeigeFehlermeldungsfensterAn("Unbekannter Fehler beim Lesen!");
 		}
+	}
+
+	public TextField getTxtKennzeichen() {
+		return txtKennzeichen;
+	}
+
+	public void setTxtKennzeichen(TextField txtKennzeichen) {
+		this.txtKennzeichen = txtKennzeichen;
+	}
+
+	public TextField getTxtVermietetVonBis() {
+		return txtVermietetVonBis;
+	}
+
+	public void setTxtVermietetVonBis(TextField txtVermietetVonBis) {
+		this.txtVermietetVonBis = txtVermietetVonBis;
+	}
+
+	public TextField getTxtTagesPreis() {
+		return txtTagesPreis;
+	}
+
+	public void setTxtTagesPreis(TextField txtTagesPreis) {
+		this.txtTagesPreis = txtTagesPreis;
+	}
+
+	public TextField getTxtTyp() {
+		return txtTyp;
+	}
+
+	public void setTxtTyp(TextField txtTyp) {
+		this.txtTyp = txtTyp;
+	}
+
+	public TextField getTxtModell() {
+		return txtModell;
+	}
+
+	public void setTxtModell(TextField txtModell) {
+		this.txtModell = txtModell;
+	}
+
+	public Label getLblEingabe() {
+		return lblEingabe;
+	}
+
+	public void setLblEingabe(Label lblEingabe) {
+		this.lblEingabe = lblEingabe;
+	}
+
+	public Label getLblAnzeige() {
+		return lblAnzeige;
+	}
+
+	public void setLblAnzeige(Label lblAnzeige) {
+		this.lblAnzeige = lblAnzeige;
 	}
 
 }

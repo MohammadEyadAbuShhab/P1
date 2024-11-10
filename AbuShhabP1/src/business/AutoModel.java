@@ -1,6 +1,8 @@
 package business;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -15,13 +17,19 @@ public class AutoModel {
 		this.auto = auto;
 	}
 
-	private void schreibeAutoInCsvDatei() {
-		try {
-			BufferedWriter aus = new BufferedWriter(new FileWriter("AutoAusgabe.csv", true));
-			aus.write(auto.gibAutoZurueck(';'));
-			aus.close();
-		} catch (IOException exc) {
-			exc.printStackTrace();
+	public void schreibeAutoInCsvDatei() throws IOException {
+
+		BufferedWriter aus = new BufferedWriter(new FileWriter("autoAusgabe.csv", true));
+		aus.write(auto.gibAutoZurueck(';'));
+		aus.close();
+	}
+
+	public void leseAusDatei(String typ) throws IOException {
+		if ("csv".equals(typ)) {
+			BufferedReader ein = new BufferedReader(new FileReader("autoAusgabe.csv"));
+			String[] zeile = ein.readLine().split(";");
+			this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";"));
+			ein.close();
 		}
 	}
 }

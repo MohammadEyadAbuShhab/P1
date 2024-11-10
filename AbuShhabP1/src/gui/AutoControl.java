@@ -1,7 +1,5 @@
 package gui;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import business.Auto;
@@ -20,16 +18,36 @@ public class AutoControl {
 		this.autoView = new AutoView(autoModel, this, primaryStage);
 	}
 
-	private void schreibeAutoInCsvDatei() {
+	public void nehmeAutoAuf() {
 		try {
-			BufferedWriter aus = new BufferedWriter(new FileWriter("AutosrAusgabe.csv", true));
-			aus.write(auto.gibAutoZurueck(';'));
-			aus.close();
-			autoView.zeigeInformationsfensterAn("Die Autos wurden gespeichert!");
-		} catch (IOException exc) {
-			autoView.zeigeFehlermeldungsfensterAn("IOException beim Speichern!");
+			this.autoModel.setAuto(new Auto(autoView.getTxtKennzeichen().getText(), autoView.getTxtModell().getText(),
+					Float.parseFloat(autoView.getTxtTagesPreis().getText()), autoView.getTxtTyp().getText(),
+					autoView.getTxtVermietetVonBis().getText().split(";")));
+			this.autoView.zeigeInformationsfensterAn("Das Auto wurde aufgenommen!");
 		} catch (Exception exc) {
-			autoView.zeigeFehlermeldungsfensterAn("Unbekannter Fehler beim Speichern!");
+			this.autoView.zeigeFehlermeldungsfensterAn(exc.getMessage());
+		}
+	}
+
+	public void leseAusDatei(String typ) {
+		try {
+			this.autoModel.leseAusDatei(typ);
+		} catch (IOException exc) {
+			this.autoView.zeigeFehlermeldungsfensterAn("IOException beim Lesen!");
+		} catch (Exception exc) {
+			this.autoView.zeigeFehlermeldungsfensterAn("Unbekannter Fehler beim Lesen!" + exc.getMessage());
+			// exc.printStackTrace(); // Detaillierte Ausgabe des Fehlers in der Konsole
+		}
+	}
+
+	public void schreibeAutoInCsvDatei() {
+		try {
+			this.autoModel.schreibeAutoInCsvDatei();
+			this.autoView.zeigeInformationsfensterAn("Die auto wurden gespeichert!");
+		} catch (IOException exc) {
+			this.autoView.zeigeFehlermeldungsfensterAn("IOException beim Speichern!");
+		} catch (Exception exc) {
+			this.autoView.zeigeFehlermeldungsfensterAn("Unbekannter Fehler beim Speichern!");
 		}
 	}
 
