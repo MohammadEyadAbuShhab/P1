@@ -1,11 +1,5 @@
 package gui;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import business.Auto;
 import business.AutoModel;
 import javafx.event.ActionEvent;
@@ -147,19 +141,19 @@ public class AutoView {
 		mnItmCsvImport.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				leseAusDatei("csv");
+				autoControl.leseAusDatei("csv");
 			}
 		});
 		mnItmTxtImport.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				leseAusDatei("txt");
+				autoControl.leseAusDatei("txt");
 			}
 		});
 		mnItmCsvExport.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				schreibeAutosInCsvDatei();
+				autoControl.schreibeAutoInCsvDatei();
 			}
 		});
 	}
@@ -172,43 +166,12 @@ public class AutoView {
 		}
 	}
 
-	private void schreibeAutosInCsvDatei() {
-		try {
-			BufferedWriter aus = new BufferedWriter(new FileWriter("AutosAusgabe.csv", true));
-			aus.write(auto.gibAutoZurueck(';'));
-			aus.close();
-			zeigeInformationsfensterAn("Die Autos wurden gespeichert!");
-		} catch (IOException exc) {
-			zeigeFehlermeldungsfensterAn("IOException beim Speichern!");
-		} catch (Exception exc) {
-			zeigeFehlermeldungsfensterAn("Unbekannter Fehler beim Speichern!");
-		}
-	}
-
 	void zeigeInformationsfensterAn(String meldung) {
 		new MeldungsfensterAnzeiger(AlertType.INFORMATION, "Information", meldung).zeigeMeldungsfensterAn();
 	}
 
 	void zeigeFehlermeldungsfensterAn(String meldung) {
 		new MeldungsfensterAnzeiger(AlertType.ERROR, "Fehler", meldung).zeigeMeldungsfensterAn();
-	}
-
-	private void leseAusDatei(String typ) {
-		try {
-			if ("csv".equals(typ)) {
-				BufferedReader ein = new BufferedReader(new FileReader("Autos.csv"));
-				String[] zeile = ein.readLine().split(";");
-				this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split("_"));
-				ein.close();
-				zeigeInformationsfensterAn("Die Autos wurden gelesen!");
-			} else {
-				zeigeInformationsfensterAn("Noch nicht implementiert!");
-			}
-		} catch (IOException exc) {
-			zeigeFehlermeldungsfensterAn("IOException beim Lesen!");
-		} catch (Exception exc) {
-			zeigeFehlermeldungsfensterAn("Unbekannter Fehler beim Lesen!");
-		}
 	}
 
 	public TextField getTxtKennzeichen() {

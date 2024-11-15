@@ -19,14 +19,14 @@ public class AutoModel {
 
 	public void schreibeAutoInCsvDatei() throws IOException {
 
-		BufferedWriter aus = new BufferedWriter(new FileWriter("autoAusgabe.csv", true));
+		BufferedWriter aus = new BufferedWriter(new FileWriter("AutosAusgabe.csv", false));
 		aus.write(auto.gibAutoZurueck(';'));
 		aus.close();
 	}
 
 	public void leseAusDatei(String typ) throws IOException {
 		if ("csv".equals(typ)) {
-			BufferedReader ein = new BufferedReader(new FileReader("autoAusgabe.csv"));
+			BufferedReader ein = new BufferedReader(new FileReader("AutosAusgabe.csv"));
 			String[] zeile = ein.readLine().split(";");
 			this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";"));
 			ein.close();

@@ -10,7 +10,6 @@ public class AutoControl {
 
 	private AutoModel autoModel;
 	private AutoView autoView;
-	private Auto auto;
 
 	public AutoControl(Stage primaryStage) {
 		super();
@@ -32,6 +31,7 @@ public class AutoControl {
 	public void leseAusDatei(String typ) {
 		try {
 			this.autoModel.leseAusDatei(typ);
+			this.autoView.zeigeInformationsfensterAn("Auto wurde aufgenommen!");
 		} catch (IOException exc) {
 			this.autoView.zeigeFehlermeldungsfensterAn("IOException beim Lesen!");
 		} catch (Exception exc) {
@@ -43,7 +43,7 @@ public class AutoControl {
 	public void schreibeAutoInCsvDatei() {
 		try {
 			this.autoModel.schreibeAutoInCsvDatei();
-			this.autoView.zeigeInformationsfensterAn("Die auto wurden gespeichert!");
+			this.autoView.zeigeInformationsfensterAn("Die Autos wurden gespeichert!");
 		} catch (IOException exc) {
 			this.autoView.zeigeFehlermeldungsfensterAn("IOException beim Speichern!");
 		} catch (Exception exc) {
