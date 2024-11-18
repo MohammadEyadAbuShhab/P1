@@ -1,5 +1,7 @@
 package gui;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 import business.Auto;
@@ -28,9 +30,14 @@ public class AutoControl {
 		}
 	}
 
-	public void leseAusDatei(String typ) {
+	public void leseAusDatei(String typ){
+		
 		try {
-			this.autoModel.leseAusDatei(typ);
+			if ("csv".equals(typ)) {
+				this.autoModel.leseAutosAusCsvDatei(typ);
+			}else if("txt".equals(typ)) {
+				this.autoModel.leseAutosAusTxtDatei(typ);
+			}
 			this.autoView.zeigeInformationsfensterAn("Auto wurde aufgenommen!");
 		} catch (IOException exc) {
 			this.autoView.zeigeFehlermeldungsfensterAn("IOException beim Lesen!");

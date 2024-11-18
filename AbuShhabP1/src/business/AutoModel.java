@@ -29,18 +29,16 @@ public class AutoModel {
 	}
 
 	public void leseAusDatei(String typ) throws IOException {
-		if ("csv".equals(typ)) {
-			BufferedReader ein = new BufferedReader(new FileReader("AutosAusgabe.csv"));
-			String[] zeile = ein.readLine().split(";");
-			this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";"));
-			ein.close();
-		}
+		BufferedReader ein = null;
+		String[] zeile = ein.readLine().split(";");
+		this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";"));
+		ein.close();
 	}
 	
 	public void leseAutosAusCsvDatei(String typ) throws IOException {
 		
 		Creater reader = new ConcreteCreaterAB();
-		Product product = reader.factoryMethod("csv");
+		Product product = reader.factoryMethod(typ);
 		
 		String[] zeile = product.leseAusDatei();
 		this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";"));
@@ -50,7 +48,7 @@ public class AutoModel {
 	public void leseAutosAusTxtDatei(String typ) throws IOException {
 		
 		Creater reader = new ConcreteCreaterAB();
-		Product product = reader.factoryMethod("txt");
+		Product product = reader.factoryMethod(typ);
 		
 		String[] zeile = product.leseAusDatei();
 		this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";"));
