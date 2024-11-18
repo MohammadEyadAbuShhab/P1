@@ -6,6 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import reader.ConcreteCreaterAB;
+import reader.Creater;
+import reader.Product;
+
 public class AutoModel {
 	private Auto auto;
 
@@ -31,5 +35,25 @@ public class AutoModel {
 			this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";"));
 			ein.close();
 		}
+	}
+	
+	public void leseAutosAusCsvDatei(String typ) throws IOException {
+		
+		Creater reader = new ConcreteCreaterAB();
+		Product product = reader.factoryMethod("csv");
+		
+		String[] zeile = product.leseAusDatei();
+		this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";"));
+		product.schliesseDatei();
+	}
+	
+	public void leseAutosAusTxtDatei(String typ) throws IOException {
+		
+		Creater reader = new ConcreteCreaterAB();
+		Product product = reader.factoryMethod("txt");
+		
+		String[] zeile = product.leseAusDatei();
+		this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";"));
+		product.schliesseDatei();
 	}
 }
