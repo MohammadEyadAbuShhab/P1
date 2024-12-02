@@ -1,4 +1,4 @@
-package gui;
+package guiAutos;
 
 import business.Auto;
 import business.AutoModel;
@@ -158,7 +158,7 @@ public class AutoView {
 		});
 	}
 
-	private void zeigeAutosAn() {
+	public void zeigeAutosAn() {
 		if (this.autoModel.getAuto() != null) {
 			txtAnzeige.setText(this.autoModel.getAuto().gibAutoZurueck(' '));
 		} else {

@@ -1,4 +1,4 @@
-package gui;
+package guiAutos;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,16 +7,18 @@ import java.io.IOException;
 import business.Auto;
 import business.AutoModel;
 import javafx.stage.Stage;
+import ownUtil.Observer;
 
-public class AutoControl {
+public class AutoControl implements Observer {
 
 	private AutoModel autoModel;
 	private AutoView autoView;
 
 	public AutoControl(Stage primaryStage) {
 		super();
-		this.autoModel = new AutoModel();
+		this.autoModel = AutoModel.getAutoModel();
 		this.autoView = new AutoView(autoModel, this, primaryStage);
+		autoModel.addObserver(this);
 	}
 
 	public void nehmeAutoAuf() {
@@ -45,6 +47,7 @@ public class AutoControl {
 			this.autoView.zeigeFehlermeldungsfensterAn("Unbekannter Fehler beim Lesen!" + exc.getMessage());
 			// exc.printStackTrace(); // Detaillierte Ausgabe des Fehlers in der Konsole
 		}
+	
 	}
 
 	public void schreibeAutoInCsvDatei() {
@@ -56,6 +59,12 @@ public class AutoControl {
 		} catch (Exception exc) {
 			this.autoView.zeigeFehlermeldungsfensterAn("Unbekannter Fehler beim Speichern!");
 		}
+	}
+
+	@Override
+	public void update() {
+		autoView.zeigeAutosAn();
+		
 	}
 
 }
