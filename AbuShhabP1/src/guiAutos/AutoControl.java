@@ -65,6 +65,7 @@ public class AutoControl implements Observer {
 	public void update() {
 		autoView.zeigeAutosAn();
 		
+		
 	}
 
 }

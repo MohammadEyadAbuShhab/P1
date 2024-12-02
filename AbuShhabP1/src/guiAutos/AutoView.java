@@ -130,7 +130,9 @@ public class AutoView {
 			@Override
 			public void handle(ActionEvent e) {
 				autoControl.nehmeAutoAuf();
+				autoModel.notifyObservers();
 			}
+			
 		});
 		btnAnzeige.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
