@@ -1,5 +1,7 @@
 package business;
 
+import java.util.ArrayList;
+
 public class Auto {
 
 	// kennzeichen des Buergeramtes
@@ -10,15 +12,29 @@ public class Auto {
 	// Strasse und Hausnummer des Buergeramtes
 	private String typ;
 	// modell des Buergeramtes
-	private String[] vermietetVonBis;
+	private ArrayList<String> vermietetVonBis;
+//	private String[] vermietetVonBis;
 
 	public Auto(String kennzeichen, String modell, float tagespreis, String typ, String[] vermietetVonBis) {
+		
+		if (vermietetVonBis == null) {
+			throw new IllegalArgumentException();
+		}
 		this.kennzeichen = kennzeichen;
 		this.modell = modell;
 		this.tagespreis = tagespreis;
 		this.typ = typ;
-		this.vermietetVonBis = vermietetVonBis;
+		setvermietetVonBisAusStringArray(vermietetVonBis);
 	}
+	
+	private void setvermietetVonBisAusStringArray(String [] vermietetVonBisA)
+    {
+    		this.vermietetVonBis = new ArrayList <String>();
+    		for (int i = 0; i < vermietetVonBisA.length; i++) 
+    		{
+    			vermietetVonBis.add(vermietetVonBisA[i]);
+			}
+    }
 
 	public String getkennzeichen() {
 		return kennzeichen;
@@ -52,21 +68,21 @@ public class Auto {
 		this.typ = typ;
 	}
 
-	public String[] getVermietetVonBis() {
+	public ArrayList<String> getVermietetVonBis() {
 		return vermietetVonBis;
 	}
 
-	public void setVermietetVonBis(String[] vermietetVonBis) {
+	public void setVermietetVonBis(ArrayList<String> vermietetVonBis) {
 		this.vermietetVonBis = vermietetVonBis;
 	}
 
 	public String getVermietetVonBisAlsString(char trenner) {
 		String ergebnis = "";
 		int i = 0;
-		for (i = 0; i < this.getVermietetVonBis().length - 1; i++) {
-			ergebnis = ergebnis + this.getVermietetVonBis()[i] + trenner;
+		for (i = 0; i < this.getVermietetVonBis().size() - 1; i++) {
+			ergebnis = ergebnis + this.getVermietetVonBis().get(i) + trenner;
 		}
-		return ergebnis + this.getVermietetVonBis()[i];
+		return ergebnis + this.getVermietetVonBis().get(i);
 	}
 
 	public String gibAutoZurueck(char trenner) {

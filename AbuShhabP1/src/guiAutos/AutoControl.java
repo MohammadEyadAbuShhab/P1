@@ -23,7 +23,7 @@ public class AutoControl implements Observer {
 
 	public void nehmeAutoAuf() {
 		try {
-			this.autoModel.setAuto(new Auto(autoView.getTxtKennzeichen().getText(), autoView.getTxtModell().getText(),
+			this.autoModel.addAuto(new Auto(autoView.getTxtKennzeichen().getText(), autoView.getTxtModell().getText(),
 					Float.parseFloat(autoView.getTxtTagesPreis().getText()), autoView.getTxtTyp().getText(),
 					autoView.getTxtVermietetVonBis().getText().split(";")));
 			this.autoView.zeigeInformationsfensterAn("Das Auto wurde aufgenommen!");

@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import ownUtil.Observable;
@@ -14,7 +15,9 @@ import reader.Creater;
 import reader.Product;
 
 public class AutoModel implements Observable{
-	private Auto auto;
+	
+	private ArrayList<Auto> auto = new ArrayList<Auto>();
+//	private Auto auto;
 	private static AutoModel autoModel;
 	Vector<Observer> observers = new Vector<Observer>();
 	
@@ -30,18 +33,20 @@ public class AutoModel implements Observable{
 		return autoModel;
 	}
 
-	public Auto getAuto() {
+	public ArrayList<Auto> getAuto() {
 		return auto;
 	}
 
-	public void setAuto(Auto auto) {
-		this.auto = auto;
+	public void addAuto(Auto auto) {
+		this.auto.add(auto);
 	}
 
 	public void schreibeAutoInCsvDatei() throws IOException {
 
 		BufferedWriter aus = new BufferedWriter(new FileWriter("AutosAusgabe.csv", false));
-		aus.write(auto.gibAutoZurueck(';'));
+		for (Auto auto2 : auto) {
+			aus.write(auto2.gibAutoZurueck(';'));
+		}
 		aus.close();
 		notifyObservers();
 	}
@@ -49,7 +54,7 @@ public class AutoModel implements Observable{
 	public void leseAusDatei(String typ) throws IOException {
 		BufferedReader ein = null;
 		String[] zeile = ein.readLine().split(";");
-		this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";"));
+		this.auto.add(new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";")));
 		ein.close();
 		notifyObservers();
 	}
@@ -60,7 +65,7 @@ public class AutoModel implements Observable{
 		Product product = reader.factoryMethod(typ);
 		
 		String[] zeile = product.leseAusDatei();
-		this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";"));
+		this.auto.add(new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";")));
 		product.schliesseDatei();
 		notifyObservers();
 	}
@@ -71,7 +76,7 @@ public class AutoModel implements Observable{
 		Product product = reader.factoryMethod(typ);
 		
 		String[] zeile = product.leseAusDatei();
-		this.auto = new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";"));
+		this.auto.add(new Auto(zeile[0], zeile[1], Float.parseFloat(zeile[2]), zeile[3], zeile[4].split(";")));
 		product.schliesseDatei();
 		notifyObservers();
 	}

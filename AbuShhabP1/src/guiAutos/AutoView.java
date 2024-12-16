@@ -161,8 +161,12 @@ public class AutoView {
 	}
 
 	public void zeigeAutosAn() {
-		if (this.autoModel.getAuto() != null) {
-			txtAnzeige.setText(this.autoModel.getAuto().gibAutoZurueck(' '));
+		if (autoModel.getAuto().size() > 0) {
+			StringBuffer text = new StringBuffer();
+			for (Auto auto : autoModel.getAuto()) {
+				text.append(auto.gibAutoZurueck(' ') + "\n");
+			}
+			this.txtAnzeige.setText(text.toString());
 		} else {
 			zeigeInformationsfensterAn("Bisher wurde kein Autos aufgenommen!");
 		}
