@@ -132,7 +132,7 @@ public class AutoView {
 				autoControl.nehmeAutoAuf();
 				autoModel.notifyObservers();
 			}
-			
+
 		});
 		btnAnzeige.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -152,12 +152,13 @@ public class AutoView {
 				autoControl.leseAusDatei("txt");
 			}
 		});
-		mnItmCsvExport.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				autoControl.schreibeAutoInCsvDatei();
-			}
-		});
+//		mnItmCsvExport.setOnAction(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent e) {
+//				autoControl.schreibeAutoInCsvDatei();
+//			}
+//		});
+		mnItmCsvExport.setOnAction(e -> autoControl.schreibeAutoInCsvDatei());
 	}
 
 	public void zeigeAutosAn() {
